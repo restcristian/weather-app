@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
 import OpenWeatherService from "@/services/OpenWeatherService";
 import { OpenWeatherApiResponse } from "@/services/types";
+import SearchBox from "@/components/ui/SearchBox";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     setIsLoading(true);
     OpenWeatherService.getWeatherForecastByCity()
-      .then(data => {
+      .then((data) => {
         setWeatherData(data);
         setIsLoading(false);
       })
@@ -32,8 +32,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main>
         <div data-testid="title">Hello World</div>
+        <SearchBox />
         <div>
           {isLoading && !weatherData ? (
             "loading..."
