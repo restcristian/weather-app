@@ -6,18 +6,24 @@ import { OpenWeatherApiResponse } from "@/services/types";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [weatherData, setWeatherData] = useState<OpenWeatherApiResponse | null>(
     null
   );
 
   useEffect(() => {
     setIsLoading(true);
-    OpenWeatherService.getWeatherForecastByCity().then((data) => {
-      setWeatherData(data);
-      setIsLoading(false);
-    });
+    OpenWeatherService.getWeatherForecastByCity()
+      .then(data => {
+        setWeatherData(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setError(error);
+      });
   }, []);
-  
+
   return (
     <>
       <Head>
