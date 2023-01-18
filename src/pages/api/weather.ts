@@ -7,10 +7,13 @@ export default async function handler(
   res: NextApiResponse<OpenWeatherApiResponse>
 ) {
   const { openWeatherUrl, openWeatherKey } = weatherAppConfig;
-  const { city } = req.query;
+  const { city, lat, lon } = req.query;
+
+  const query = (lat && lon) ? `lat=${lat}&lon=${lon}` : city;
+
   try {
     const response: OpenWeatherApiResponse = await (
-      await fetch(`${openWeatherUrl}?q=${city}&appid=${openWeatherKey}`)
+      await fetch(`${openWeatherUrl}?q=${query}&appid=${openWeatherKey}`)
     ).json();
     res.status(200).send(response);
   } catch (error) {
