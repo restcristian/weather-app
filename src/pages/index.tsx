@@ -1,7 +1,23 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
+import OpenWeatherService from "@/services/OpenWeatherService";
+import { OpenWeatherApiResponse } from "@/services/types";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [weatherData, setWeatherData] = useState<OpenWeatherApiResponse | null>(
+    null
+  );
+
+  useEffect(() => {
+    setIsLoading(true);
+    OpenWeatherService.getWeatherForecastByCity().then((data) => {
+      setWeatherData(data);
+      setIsLoading(false);
+    });
+  }, []);
+  
   return (
     <>
       <Head>
@@ -12,6 +28,13 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div data-testid="title">Hello World</div>
+        <div>
+          {isLoading && !weatherData ? (
+            "loading..."
+          ) : (
+            <code>{JSON.stringify(weatherData)}</code>
+          )}
+        </div>
       </main>
     </>
   );
