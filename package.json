@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@next/font": "13.1.2",
@@ -19,5 +20,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "4.9.4"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^13.4.0",
+    "@types/jest": "28.1.1",
+    "eslint-plugin-testing-library": "^5.9.1",
+    "jest": "28.1.0",
+    "jest-environment-jsdom": "28.1.0"
   }
 }
