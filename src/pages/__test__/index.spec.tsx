@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import Home from "@/pages";
 
 describe("Home", () => {
-  it("renders a title with Hello World", () => {
-    render(<Home />);
-
-    const title = screen.getByTestId("title");
-
-    expect(title.innerHTML).toContain("Hello World");
+  it("renders a title with Hello World", async () => {
+    await act(async () => {
+      const { baseElement } = render(<Home />);
+      expect(baseElement).toBeTruthy();
+    });
+    expect(screen.queryByTestId("title")?.innerHTML).toContain("Hello World");
   });
 });
