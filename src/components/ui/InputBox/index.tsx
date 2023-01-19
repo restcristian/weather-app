@@ -12,10 +12,15 @@ interface Props {
 const InputBox: React.FC<Props> = ({ rightIcon, ...rest }) => {
   return (
     <div
+      data-testid="input-box"
       className={classnames(styles.inputBox, { [styles.hasIcon]: rightIcon })}
     >
       <input {...rest} className={styles.input} />
-      {rightIcon && <div className={styles.iconContainer}>{rightIcon}</div>}
+      {rightIcon && (
+        <div data-testid="icon" className={styles.iconContainer}>
+          {rightIcon}
+        </div>
+      )}
     </div>
   );
 };
