@@ -1,0 +1,13 @@
+.spinner {
+    display: inline-block;
+    animation: spin-animation .3s ease-in-out infinite;
+}
+
+@keyframes spin-animation {
+    0%{
+        transform: rotate(0);
+    };
+    100% {
+        transform: rotate(360deg);
+    }
+}
