@@ -1,15 +1,15 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import Head from "next/head";
+import { BsSearch } from "react-icons/bs";
 import OpenWeatherService from "@/services/OpenWeatherService";
 import { OpenWeatherApiResponse } from "@/services/types";
-import SearchBox from "@/components/ui/InputBox";
 import InputBox from "@/components/ui/InputBox";
-import { spawn } from "child_process";
+import Spinner from "@/components/ui/Spinner";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState("");
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
   const [weatherData, setWeatherData] = useState<OpenWeatherApiResponse | null>(
     null
   );
@@ -49,15 +49,15 @@ export default function Home() {
             value={city}
             onChange={onCityChangeHandler}
             placeholder="City: (e.g: Berlin)"
-            rightIcon={<span style={{ color: "black" }}>search_icon</span>}
+            rightIcon={
+              <span style={{ color: "black" }}>
+                <BsSearch />
+              </span>
+            }
           />
         </form>
         <div>
-          {isLoading && !weatherData ? (
-            "loading..."
-          ) : (
-            <code>{JSON.stringify(weatherData)}</code>
-          )}
+          {isLoading ? <Spinner /> : <code>{JSON.stringify(weatherData)}</code>}
         </div>
       </main>
     </>
