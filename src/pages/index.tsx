@@ -1,28 +1,38 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Head from "next/head";
 import OpenWeatherService from "@/services/OpenWeatherService";
 import { OpenWeatherApiResponse } from "@/services/types";
-import SearchBox from "@/components/ui/SearchBox";
+import SearchBox from "@/components/ui/InputBox";
+import InputBox from "@/components/ui/InputBox";
+import { spawn } from "child_process";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
+  const [city, setCity] = useState("");
   const [error, setError] = useState(null);
   const [weatherData, setWeatherData] = useState<OpenWeatherApiResponse | null>(
     null
   );
 
-  useEffect(() => {
-    setIsLoading(true);
-    OpenWeatherService.getWeatherForecastByCity()
-      .then((data) => {
-        setWeatherData(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setError(error);
-      });
-  }, []);
+  const fetchForecast = async () => {
+    try {
+      setIsLoading(true);
+      const data = await OpenWeatherService.getWeatherForecastByCity(city);
+      setWeatherData(data);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false);
+  };
+
+  const onCityChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value);
+  };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetchForecast().then();
+  };
 
   return (
     <>
@@ -34,7 +44,14 @@ export default function Home() {
       </Head>
       <main>
         <div data-testid="title">Hello World</div>
-        <SearchBox />
+        <form onSubmit={onSubmit}>
+          <InputBox
+            value={city}
+            onChange={onCityChangeHandler}
+            placeholder="City: (e.g: Berlin)"
+            rightIcon={<span style={{ color: "black" }}>search_icon</span>}
+          />
+        </form>
         <div>
           {isLoading && !weatherData ? (
             "loading..."
