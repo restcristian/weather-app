@@ -4,6 +4,7 @@ import OpenWeatherService from "@/services/OpenWeatherService";
 import { OpenWeatherApiResponse } from "@/services/types";
 import InputBox from "@/components/ui/InputBox";
 import Spinner from "@/components/ui/Spinner";
+import Weather from "@/components/ui/Weather";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +50,11 @@ export default function Home() {
         />
       </form>
       <div>
-        {isLoading ? <Spinner /> : <code>{JSON.stringify(weatherData)}</code>}
+        {weatherData ? (
+          <Weather data={weatherData} />
+        ) : isLoading ? (
+          <Spinner />
+        ) : null}
       </div>
     </>
   );
