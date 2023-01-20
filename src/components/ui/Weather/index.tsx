@@ -1,11 +1,11 @@
-import { OpenWeatherApiResponse } from "@/services/types";
+import { OpenWeatherApiCurrentResponse } from "@/services/types";
 import { formatOpenWeatherIconUrl, formatTemperature } from "@/utils";
 import Image from "next/image";
 import React from "react";
 import styles from "./weather.module.scss";
 
 interface Props {
-  data: OpenWeatherApiResponse | null;
+  data: OpenWeatherApiCurrentResponse | null;
 }
 
 const Weather: React.FC<Props> = ({ data }) => {

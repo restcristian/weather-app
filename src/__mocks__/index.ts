@@ -1,4 +1,4 @@
-export const OpenWeatherApiResponseMock = {
+export const OpenWeatherApiCurrentResponseMock = {
     "coord": {
         "lon": 13.4105,
         "lat": 52.5244

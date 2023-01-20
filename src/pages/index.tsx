@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import OpenWeatherService from "@/services/OpenWeatherService";
-import { OpenWeatherApiResponse } from "@/services/types";
+import { OpenWeatherApiCurrentResponse } from "@/services/types";
 import InputBox from "@/components/ui/InputBox";
 import Spinner from "@/components/ui/Spinner";
 import Weather from "@/components/ui/Weather";
@@ -10,7 +10,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState("");
   const [, setError] = useState(null);
-  const [weatherData, setWeatherData] = useState<OpenWeatherApiResponse | null>(
+  const [weatherData, setWeatherData] = useState<OpenWeatherApiCurrentResponse | null>(
     null
   );
 

@@ -36,7 +36,7 @@ export interface Sys {
   sunset: number;
 }
 
-export interface OpenWeatherApiResponse {
+export interface OpenWeatherApiCurrentResponse {
   coord: Coord;
   weather: Weather[];
   base: string;
@@ -50,4 +50,15 @@ export interface OpenWeatherApiResponse {
   id: number;
   name: string;
   cod: number;
+}
+
+export type LocalNames = Record<string, string>;
+
+export interface OpenWeatherApiGeolocationResponse {
+  name: string;
+  local_names?: LocalNames;
+  lat: number;
+  lon: number;
+  country: string;
+  state: string;
 }

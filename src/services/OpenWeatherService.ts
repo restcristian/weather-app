@@ -1,9 +1,9 @@
-import { Coord, OpenWeatherApiResponse } from "./types";
+import { Coord, OpenWeatherApiCurrentResponse } from "./types";
 
 class OpenWeatherService {
   async getWeatherForecastByCity(city: string = "berlin") {
     try {
-      const response: OpenWeatherApiResponse = await (
+      const response: OpenWeatherApiCurrentResponse = await (
         await fetch(`api/weather?city=${city}`)
       ).json();
       return response;
@@ -16,7 +16,7 @@ class OpenWeatherService {
   ) {
     try {
       const { lat, lon } = coords;
-      const response: OpenWeatherApiResponse = await (
+      const response: OpenWeatherApiCurrentResponse = await (
         await fetch(`api/weather?lat=${lat}&lon=${lon}`)
       ).json();
       return response;

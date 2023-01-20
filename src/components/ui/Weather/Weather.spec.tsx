@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import Weather from "@/components/ui/Weather";
-import { OpenWeatherApiResponseMock } from "@/__mocks__";
+import { OpenWeatherApiCurrentResponseMock } from "@/__mocks__";
 import { formatTemperature } from "@/utils";
 
 describe("Home", () => {
@@ -9,7 +9,7 @@ describe("Home", () => {
   });
 
   const props = {
-    data: OpenWeatherApiResponseMock,
+    data: OpenWeatherApiCurrentResponseMock,
   };
   it("renders without error", () => {
     const { baseElement } = render(<Weather {...props} />);

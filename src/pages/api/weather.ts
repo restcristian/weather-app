@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { weatherAppConfig } from "@/config";
-import { OpenWeatherApiResponse } from "@/services/types";
+import { OpenWeatherApiCurrentResponse } from "@/services/types";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<OpenWeatherApiResponse>
+  res: NextApiResponse<OpenWeatherApiCurrentResponse>
 ) {
   const { openWeatherUrl, openWeatherKey } = weatherAppConfig;
   const { city, lat, lon } = req.query;
@@ -12,8 +12,8 @@ export default async function handler(
   const query = (lat && lon) ? `lat=${lat}&lon=${lon}` : city;
 
   try {
-    const response: OpenWeatherApiResponse = await (
-      await fetch(`${openWeatherUrl}?q=${query}&appid=${openWeatherKey}`)
+    const response: OpenWeatherApiCurrentResponse = await (
+      await fetch(`${openWeatherUrl}/data/2.5/weather?q=${query}&appid=${openWeatherKey}`)
     ).json();
     res.status(200).send(response);
   } catch (error) {
