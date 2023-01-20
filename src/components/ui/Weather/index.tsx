@@ -2,6 +2,7 @@ import { OpenWeatherApiCurrentResponse } from "@/services/types";
 import { formatOpenWeatherIconUrl, formatTemperature } from "@/utils";
 import Image from "next/image";
 import React from "react";
+import DailyProjection from "./DailyProjection";
 import styles from "./weather.module.scss";
 
 interface Props {
@@ -39,6 +40,7 @@ const Weather: React.FC<Props> = ({ data }) => {
             data-testid="weather-image"
           />
           <div className={styles.minMaxMainTempWrapper}>
+            <p>{data?.timezone}</p>
             <p>{data?.current.weather[0].main}</p>
             <div>
               <span data-testid="high-temp-text">
@@ -56,6 +58,7 @@ const Weather: React.FC<Props> = ({ data }) => {
           </p>
         </div>
       </div>
+      <DailyProjection daily={data?.daily} />
     </div>
   );
 };
