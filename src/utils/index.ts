@@ -16,7 +16,7 @@ export const formatOpenWeatherIconUrl = (icon: string) => {
   return `http://openweathermap.org/img/wn/${icon}@2x.png`;
 };
 
-export const getDateFromTimeStamp = (timestamp: number) => {
+export const getDayFromTimeStamp = (timestamp: number) => {
   const date = new Date(timestamp * 1000);
   return daysOfTheWeek[date.getDay()];
 };

@@ -1,4 +1,8 @@
-import { formatOpenWeatherIconUrl, formatTemperature } from ".";
+import {
+  formatOpenWeatherIconUrl,
+  formatTemperature,
+  getDayFromTimeStamp,
+} from ".";
 
 describe("Utils", () => {
   describe("formatTemperature", () => {
@@ -11,6 +15,12 @@ describe("Utils", () => {
       expect(formatOpenWeatherIconUrl("nx")).toBe(
         "http://openweathermap.org/img/wn/nx@2x.png"
       );
+    });
+  });
+
+  describe("getDayFromTimeStamp", () => {
+    it("should return the day of the week based on a timestap", () => {
+      expect(getDayFromTimeStamp(123243434)).toBe("Tuesday");
     });
   });
 });

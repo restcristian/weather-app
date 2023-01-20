@@ -3,7 +3,7 @@ import Weather from "@/components/ui/Weather";
 import { OpenWeatherApiCurrentResponseMock } from "@/__mocks__";
 import { formatTemperature } from "@/utils";
 
-describe("Home", () => {
+describe("Weather", () => {
   afterEach(() => {
     cleanup();
   });

@@ -2,7 +2,7 @@ import { Daily } from "@/services/types";
 import {
   formatOpenWeatherIconUrl,
   formatTemperature,
-  getDateFromTimeStamp,
+  getDayFromTimeStamp,
 } from "@/utils";
 import Image from "next/image";
 import React from "react";
@@ -21,14 +21,13 @@ const DailyProjection: React.FC<Props> = ({ daily }) => {
           key={`${projection.weather[0].id}-${index}`}
         >
           <div className={styles.innerCard}>
-            <p className={styles.date}>{getDateFromTimeStamp(projection.dt)}</p>
+            <p className={styles.date}>{getDayFromTimeStamp(projection.dt)}</p>
             <div className={styles.imageWrapper}>
               <Image
                 src={formatOpenWeatherIconUrl(projection.weather[0].icon)}
                 width="50"
                 height="50"
                 alt="Weather Icon"
-                data-testid="weather-image"
               />
               <p>{formatTemperature(projection.temp.max)}</p>
             </div>
