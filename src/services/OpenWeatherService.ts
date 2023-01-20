@@ -1,23 +1,28 @@
-import { Coord, OpenWeatherApiCurrentResponse } from "./types";
+import {
+  OpenWeatherApiCurrentResponse,
+  OpenWeatherApiGeolocationResponse,
+} from "./types";
 
 class OpenWeatherService {
   async getWeatherForecastByCity(city: string = "berlin") {
     try {
+      const geoResponse = await this.getWeatherGeoDataByCity(city);
+      const { lat, lon } = geoResponse[0];
+
       const response: OpenWeatherApiCurrentResponse = await (
-        await fetch(`api/weather?city=${city}`)
+        await fetch(`api/weather?lat=${lat}&lon=${lon}`)
       ).json();
+
       return response;
     } catch (error) {
       throw error;
     }
   }
-  async getWeatherForecastByCoordinates(
-    coords: Coord = { lat: 52.5441468, lon: 13.404526 }
-  ) {
+
+  async getWeatherGeoDataByCity(city: string) {
     try {
-      const { lat, lon } = coords;
-      const response: OpenWeatherApiCurrentResponse = await (
-        await fetch(`api/weather?lat=${lat}&lon=${lon}`)
+      const response: OpenWeatherApiGeolocationResponse[] = await (
+        await fetch(`api/geocoding?city=${city}`)
       ).json();
       return response;
     } catch (error) {

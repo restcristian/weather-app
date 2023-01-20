@@ -4,12 +4,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<OpenWeatherApiGeolocationResponse>
+  res: NextApiResponse<OpenWeatherApiGeolocationResponse[]>
 ) {
   const { city } = req.query;
   const { openWeatherUrl, openWeatherKey } = weatherAppConfig;
+
   try {
-    const response: OpenWeatherApiGeolocationResponse = await (
+    const response: OpenWeatherApiGeolocationResponse[] = await (
       await fetch(
         `${openWeatherUrl}/geo/1.0/direct?q=$${city}&appid=${openWeatherKey}`
       )

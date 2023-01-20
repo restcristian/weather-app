@@ -20,7 +20,7 @@ describe("Home", () => {
     render(<Weather {...props} />);
     const imageElement = screen.queryByTestId("weather-image");
     expect(imageElement?.getAttribute("src")).toContain(
-      props.data.weather[0].icon
+      props.data.current.weather[0].icon
     );
   });
 
@@ -30,10 +30,10 @@ describe("Home", () => {
     const lowTempText = screen.queryByTestId("low-temp-text");
 
     expect(highTempText?.innerHTML).toBe(
-      `H: ${formatTemperature(props.data.main.temp_max)}`
+      `H: ${formatTemperature(276)}`
     );
     expect(lowTempText?.innerHTML).toBe(
-      `L: ${formatTemperature(props.data.main.temp_min)}`
+      `L: ${formatTemperature(0)}`
     );
   });
 
@@ -42,7 +42,7 @@ describe("Home", () => {
     const tempElement = screen.queryByTestId("temp-text");
 
     expect(tempElement?.innerHTML).toBe(
-      `${formatTemperature(props.data.main.temp)}`
+      `${formatTemperature(props.data.current.temp)}`
     );
   });
 });
