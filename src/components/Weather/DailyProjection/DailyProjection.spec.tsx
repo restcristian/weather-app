@@ -1,5 +1,5 @@
 import { cleanup, render } from "@testing-library/react";
-import DailyProjection from "@/components/ui/Weather/DailyProjection";
+import DailyProjection from "@/components/Weather/DailyProjection";
 import { OpenWeatherApiCurrentResponseMock } from "@/__mocks__";
 
 describe("DailyProjection", () => {

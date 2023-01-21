@@ -4,7 +4,7 @@ import OpenWeatherService from "@/services/OpenWeatherService";
 import { OpenWeatherApiCurrentResponse } from "@/services/types";
 import InputBox from "@/components/ui/InputBox";
 import Spinner from "@/components/ui/Spinner";
-import Weather from "@/components/ui/Weather";
+import Weather from "@/components/Weather";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
