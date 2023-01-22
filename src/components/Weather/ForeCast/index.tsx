@@ -31,7 +31,7 @@ const ForeCast: React.FC = () => {
   }
 
   if(isError) {
-    return <ErrorLabel error={error} />;
+    return <ErrorLabel error={error as any} />;
   }
 
   if (!data?.current) {
