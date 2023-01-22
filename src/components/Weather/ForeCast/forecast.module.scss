@@ -17,6 +17,13 @@
     }
   }
 
+  .spinnerContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+  }
+
   @media (max-width: 767px) {
     .mainWrapper {
       flex-direction: column;
@@ -36,4 +43,5 @@
       text-align: center;
     }
   }
+
 }

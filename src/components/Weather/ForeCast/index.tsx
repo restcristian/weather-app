@@ -1,15 +1,39 @@
-import { OpenWeatherApiCurrentResponse } from "@/services/types";
+import ErrorLabel from "@/components/ErrorLabel";
+import Spinner from "@/components/ui/Spinner";
+import { useOpenWeatherCurrentResponseQuery } from "@/services/queries";
 import { formatOpenWeatherIconUrl, formatTemperature } from "@/utils";
 import Image from "next/image";
 import React from "react";
 import DailyProjection from "../DailyProjection";
 import styles from "./forecast.module.scss";
 
-interface Props {
-  data?: OpenWeatherApiCurrentResponse;
-}
+const ForeCast: React.FC = () => {
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetching,
+    error
+  } = useOpenWeatherCurrentResponseQuery(
+    {},
+    {
+      enabled: false,
+      retry: false,
+    }
+  );
 
-const ForeCast: React.FC<Props> = ({ data }) => {
+  if(isLoading || isFetching) {
+    return  (
+      <div className = {styles.spinnerContainer}>
+        <Spinner />
+      </div>
+    )
+  }
+
+  if(isError) {
+    return <ErrorLabel error={error} />;
+  }
+
   if (!data?.current) {
     return null;
   }

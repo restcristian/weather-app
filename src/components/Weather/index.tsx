@@ -14,13 +14,7 @@ const Weather = () => {
 
   const { isSuccessful: isGeoSuccessful, geoLocation } = useGeoLocation();
 
-  const {
-    data,
-    isLoading,
-    error,
-    isError,
-    refetch,
-  } = useOpenWeatherCurrentResponseQuery(
+  const { isLoading, refetch } = useOpenWeatherCurrentResponseQuery(
     {
       lat: geoLocation?.lat,
       lon: geoLocation?.lon,
@@ -59,10 +53,7 @@ const Weather = () => {
           }
         />
       </form>
-      <div>
-        {isLoading ? <Spinner /> : isError ? null : <ForeCast data={data} />}
-      </div>
-      <ErrorLabel error={error} />
+      <ForeCast />
     </div>
   );
 };
