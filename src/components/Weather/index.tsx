@@ -7,6 +7,7 @@ import { useGeoLocation } from "@/hooks";
 import IconButton from "@/components/ui/IconButton";
 import { useOpenWeatherCurrentResponseQuery } from "@/services/queries";
 import styles from "./weather.module.scss";
+import ErrorLabel from "../ErrorLabel";
 
 const Weather = () => {
   const [city, setCity] = useState("");
@@ -45,8 +46,8 @@ const Weather = () => {
   }
 
   return (
-    <div className = {styles.weather}>
-      <form onSubmit={onSubmit} >
+    <div className={styles.weather}>
+      <form onSubmit={onSubmit}>
         <InputBox
           value={city}
           onChange={onCityChangeHandler}
@@ -61,11 +62,7 @@ const Weather = () => {
       <div>
         {isLoading ? <Spinner /> : isError ? null : <ForeCast data={data} />}
       </div>
-      {error && (
-        <div>
-          <span>{error.message}</span>
-        </div>
-      )}
+      <ErrorLabel error={error} />
     </div>
   );
 };
