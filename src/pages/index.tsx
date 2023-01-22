@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import OpenWeatherService from "@/services/OpenWeatherService";
 import { OpenWeatherApiCurrentResponse } from "@/services/types";
@@ -6,6 +6,7 @@ import InputBox from "@/components/ui/InputBox";
 import Spinner from "@/components/ui/Spinner";
 import Weather from "@/components/Weather";
 import { useGeoLocation } from "@/hooks";
+import IconButton from "@/components/ui/IconButton";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +60,7 @@ export default function Home() {
 
   useEffect(() => {
     if (isGeoSuccessful) {
-      fetchForecastByCoordinates().then()
+      fetchForecastByCoordinates().then();
     }
   }, [isGeoSuccessful]);
 
@@ -71,9 +72,9 @@ export default function Home() {
           onChange={onCityChangeHandler}
           placeholder="City: (e.g: Berlin)"
           rightIcon={
-            <span style={{ color: "black" }}>
-              <BsSearch />
-            </span>
+            <IconButton type="submit">
+              <BsSearch size={18} />
+            </IconButton>
           }
         />
       </form>
