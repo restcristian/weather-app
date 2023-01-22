@@ -1,28 +1,33 @@
-import { Coord, OpenWeatherApiResponse } from "./types";
+import { OpenWeatherApiError } from "./errors";
+import { OpenWeatherApiCurrentResponse } from "./types";
 
 class OpenWeatherService {
   async getWeatherForecastByCity(city: string = "berlin") {
-    try {
-      const response: OpenWeatherApiResponse = await (
-        await fetch(`api/weather?city=${city}`)
-      ).json();
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const geoResponse = await this.getWeatherGeoDataByCity(city);
+
+    const { lat, lon } = geoResponse[0];
+
+    const response = await this.getWeatherForecastByCoordinates(lat, lon);
+
+    return response;
   }
-  async getWeatherForecastByCoordinates(
-    coords: Coord = { lat: 52.5441468, lon: 13.404526 }
-  ) {
-    try {
-      const { lat, lon } = coords;
-      const response: OpenWeatherApiResponse = await (
-        await fetch(`api/weather?lat=${lat}&lon=${lon}`)
-      ).json();
-      return response;
-    } catch (error) {
-      throw error;
+
+  async getWeatherGeoDataByCity(city: string) {
+    const response = await (await fetch(`api/geocoding?city=${city}`)).json();
+
+    if (response.statusCode) {
+      throw new OpenWeatherApiError(response.message, response.statusCode);
     }
+
+    return response;
+  }
+
+  async getWeatherForecastByCoordinates(lat: number, lon: number) {
+    const response: OpenWeatherApiCurrentResponse = await (
+      await fetch(`api/weather?lat=${lat}&lon=${lon}`)
+    ).json();
+
+    return response;
   }
 }
 

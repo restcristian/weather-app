@@ -4,5 +4,5 @@ $content-width: 860px;
 .main {
   padding: 0 $space-gap;
   max-width: $content-width;
-  margin: 0 auto;
+  margin: $space-gap auto;
 }

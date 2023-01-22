@@ -1,7 +1,7 @@
 import { cleanup, render } from "@testing-library/react";
 import Spinner from "@/components/ui/Spinner";
 
-describe("Home", () => {
+describe("Spinner", () => {
   afterEach(() => {
     cleanup();
   });

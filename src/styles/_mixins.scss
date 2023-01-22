@@ -1,0 +1,3 @@
+@mixin column-width($numberOfColumns) {
+    width: #{$numberOfColumns / 12 * 100%}
+}

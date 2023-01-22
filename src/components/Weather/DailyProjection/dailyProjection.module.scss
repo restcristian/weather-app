@@ -1,0 +1,40 @@
+@import "~/src/styles/colors";
+@import "~/src/styles/mixins";
+
+.dailyProjection {
+  display: flex;
+  margin: 12px 0;
+  justify-content: center;
+  border-radius: 10px;
+  flex-wrap: wrap;
+
+  .card {
+    @include column-width(3);
+
+    @media (max-width: 767px) {
+      @include column-width(5);
+    }
+
+    @media (max-width: 379px) {
+      @include column-width(12);
+    }
+  }
+
+  .date {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .innerCard {
+    border: 1px solid $color-white;
+    padding: 12px;
+    background-color: rgba(128, 128, 128, 0.2);
+    text-align: center;
+  }
+
+  .imageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
