@@ -1,64 +1,71 @@
-import { OpenWeatherApiCurrentResponse } from "@/services/types";
-import { formatOpenWeatherIconUrl, formatTemperature } from "@/utils";
-import Image from "next/image";
-import React from "react";
-import DailyProjection from "./DailyProjection";
+import React, { FormEvent, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import InputBox from "@/components/ui/InputBox";
+import Spinner from "@/components/ui/Spinner";
+import ForeCast from "@/components/Weather/ForeCast";
+import { useGeoLocation } from "@/hooks";
+import IconButton from "@/components/ui/IconButton";
+import { useOpenWeatherCurrentResponseQuery } from "@/services/queries";
 import styles from "./weather.module.scss";
 
-interface Props {
-  data?: OpenWeatherApiCurrentResponse;
-}
+const Weather = () => {
+  const [city, setCity] = useState("");
 
-const Weather: React.FC<Props> = ({ data }) => {
-  if (!data?.current) {
-    return null;
+  const { isSuccessful: isGeoSuccessful, geoLocation } = useGeoLocation();
+
+  const {
+    data,
+    isLoading,
+    error,
+    isError,
+    refetch,
+  } = useOpenWeatherCurrentResponseQuery(
+    {
+      lat: geoLocation?.lat,
+      lon: geoLocation?.lon,
+      city,
+    },
+    {
+      enabled: !!isGeoSuccessful,
+      retry: false,
+    }
+  );
+
+  const onCityChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value);
+  };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    refetch();
+  };
+
+  if (!isGeoSuccessful) {
+    return <Spinner />;
   }
 
-  const lowestTemp = data?.hourly.reduce((prevTemp, nextTemp) => {
-    if (prevTemp > nextTemp.temp) {
-      return nextTemp.temp;
-    }
-    return prevTemp;
-  }, 0);
-
-  const highestTemp = data?.hourly.reduce((prevTemp, nextTemp) => {
-    if (prevTemp < nextTemp.temp) {
-      return nextTemp.temp;
-    }
-    return prevTemp;
-  }, 0);
-
   return (
-    <div className={styles.weather} data-testid="weather">
-      <div className={styles.mainWrapper}>
-        <div className={styles.mainLeftColumn}>
-          <Image
-            src={formatOpenWeatherIconUrl(data?.current.weather[0].icon)}
-            width="100"
-            height="100"
-            alt="Weather Icon"
-            data-testid="weather-image"
-          />
-          <div className={styles.minMaxMainTempWrapper}>
-            <p>{data?.timezone}</p>
-            <p>{data?.current.weather[0].main}</p>
-            <div>
-              <span data-testid="high-temp-text">
-                H: {formatTemperature(highestTemp)}
-              </span>
-              <span data-testid="low-temp-text">
-                L: {formatTemperature(lowestTemp)}
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.mainRightColumn}>
-          <p className={styles.tempText} data-testid="temp-text">
-            {formatTemperature(data?.current.temp)}
-          </p>
-        </div>
+    <div className = {styles.weather}>
+      <form onSubmit={onSubmit} >
+        <InputBox
+          value={city}
+          onChange={onCityChangeHandler}
+          placeholder="City: (e.g: Berlin)"
+          rightIcon={
+            <IconButton type="submit" disabled={isLoading}>
+              <BsSearch size={24} />
+            </IconButton>
+          }
+        />
+      </form>
+      <div>
+        {isLoading ? <Spinner /> : isError ? null : <ForeCast data={data} />}
       </div>
-      <DailyProjection daily={data?.daily} />
+      {error && (
+        <div>
+          <span>{error.message}</span>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,38 +1,4 @@
 .weather {
-  .mainWrapper {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .tempText {
-    font-size: 5rem;
-  }
-  .minMaxMainTempWrapper {
-    font-size: 1.2rem;
-
-    > div {
-      padding-top: 12px;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .mainWrapper {
-      flex-direction: column;
-    }
-    .mainLeftColumn {
-      order: 2;
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-    }
-    .mainRightColumn {
-      order: 1;
-    }
-
-    .minMaxMainTempWrapper {
-      text-align: center;
-    }
-  }
+    padding: 24px;
+    background-color: rgba(255, 251, 251, .09);
 }

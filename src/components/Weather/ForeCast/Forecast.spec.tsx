@@ -1,5 +1,5 @@
 import { cleanup, render, screen } from "@testing-library/react";
-import Weather from "@/components/Weather";
+import ForeCast from "@/components/Weather/ForeCast";
 import { OpenWeatherApiCurrentResponseMock } from "@/__mocks__";
 import { formatTemperature } from "@/utils";
 
@@ -12,12 +12,12 @@ describe("Weather", () => {
     data: OpenWeatherApiCurrentResponseMock,
   };
   it("renders without error", () => {
-    const { baseElement } = render(<Weather {...props} />);
+    const { baseElement } = render(<ForeCast {...props} />);
     expect(baseElement).toBeTruthy();
   });
 
   it("renders an image with with the icon as url", () => {
-    render(<Weather {...props} />);
+    render(<ForeCast {...props} />);
     const imageElement = screen.queryByTestId("weather-image");
     expect(imageElement?.getAttribute("src")).toContain(
       props.data.current.weather[0].icon
@@ -25,7 +25,7 @@ describe("Weather", () => {
   });
 
   it("renders the high temperature and low temperature", () => {
-    render(<Weather {...props} />);
+    render(<ForeCast {...props} />);
     const highTempText = screen.queryByTestId("high-temp-text");
     const lowTempText = screen.queryByTestId("low-temp-text");
 
@@ -38,7 +38,7 @@ describe("Weather", () => {
   });
 
   it("renders the main temperature", () => {
-    render(<Weather {...props} />);
+    render(<ForeCast {...props} />);
     const tempElement = screen.queryByTestId("temp-text");
 
     expect(tempElement?.innerHTML).toBe(
