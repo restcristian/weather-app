@@ -22,7 +22,7 @@ class OpenWeatherService {
     return response;
   }
 
-  async getWeatherForecastByCoordinates(lat: number, lon: number) {
+  async getWeatherForecastByCoordinates(lat?: number, lon?: number) {
     const response: OpenWeatherApiCurrentResponse = await (
       await fetch(`api/weather?lat=${lat}&lon=${lon}`)
     ).json();

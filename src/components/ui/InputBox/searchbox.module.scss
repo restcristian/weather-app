@@ -2,7 +2,7 @@
   width: 100%;
   position: relative;
   display: flex;
-
+  
   &.hasIcon {
     .input {
       padding-right: 50px;
@@ -14,9 +14,12 @@
     appearance: none;
     border: none;
     margin: 0;
-    padding:12px;
+    padding:24px;
+    border-radius: 12px;
     padding-right: 60px;
+    font-size: 18px;
   }
+  
   .iconContainer {
     position: absolute;
     right: 12px;

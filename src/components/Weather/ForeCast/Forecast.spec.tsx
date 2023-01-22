@@ -1,7 +1,19 @@
 import { cleanup, render, screen } from "@testing-library/react";
-import Weather from "@/components/Weather";
+import ForeCast from "@/components/Weather/ForeCast";
 import { OpenWeatherApiCurrentResponseMock } from "@/__mocks__";
 import { formatTemperature } from "@/utils";
+import React from "react";
+
+jest.mock("@/services/queries", () => {
+  return {
+    useOpenWeatherCurrentResponseQuery: () => {
+      return {
+        data: OpenWeatherApiCurrentResponseMock,
+        isLoading: false,
+      };
+    },
+  };
+});
 
 describe("Weather", () => {
   afterEach(() => {
@@ -12,12 +24,13 @@ describe("Weather", () => {
     data: OpenWeatherApiCurrentResponseMock,
   };
   it("renders without error", () => {
-    const { baseElement } = render(<Weather {...props} />);
+    const { baseElement } = render(<ForeCast />);
+
     expect(baseElement).toBeTruthy();
   });
 
   it("renders an image with with the icon as url", () => {
-    render(<Weather {...props} />);
+    render(<ForeCast />);
     const imageElement = screen.queryByTestId("weather-image");
     expect(imageElement?.getAttribute("src")).toContain(
       props.data.current.weather[0].icon
@@ -25,20 +38,16 @@ describe("Weather", () => {
   });
 
   it("renders the high temperature and low temperature", () => {
-    render(<Weather {...props} />);
+    render(<ForeCast />);
     const highTempText = screen.queryByTestId("high-temp-text");
     const lowTempText = screen.queryByTestId("low-temp-text");
 
-    expect(highTempText?.innerHTML).toBe(
-      `H: ${formatTemperature(276)}`
-    );
-    expect(lowTempText?.innerHTML).toBe(
-      `L: ${formatTemperature(0)}`
-    );
+    expect(highTempText?.innerHTML).toBe(`H: ${formatTemperature(276)}`);
+    expect(lowTempText?.innerHTML).toBe(`L: ${formatTemperature(0)}`);
   });
 
   it("renders the main temperature", () => {
-    render(<Weather {...props} />);
+    render(<ForeCast />);
     const tempElement = screen.queryByTestId("temp-text");
 
     expect(tempElement?.innerHTML).toBe(

@@ -16,6 +16,10 @@
     }
 
     @media (max-width: 379px) {
+      @include column-width(6);
+    }
+
+    @media (max-width: 350px) {
       @include column-width(12);
     }
   }
