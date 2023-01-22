@@ -6,7 +6,7 @@ import DailyProjection from "./DailyProjection";
 import styles from "./weather.module.scss";
 
 interface Props {
-  data: OpenWeatherApiCurrentResponse | null;
+  data?: OpenWeatherApiCurrentResponse;
 }
 
 const Weather: React.FC<Props> = ({ data }) => {

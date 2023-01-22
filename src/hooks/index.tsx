@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 interface GeoLocation {
   lat: number;
   lon: number;
@@ -39,3 +38,5 @@ export const useGeoLocation = () => {
     error,
   };
 };
+
+
