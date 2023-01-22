@@ -1,5 +1,5 @@
 import { cleanup, render, screen } from "@testing-library/react";
-import Weather from "@/components/ui/Weather";
+import Weather from "@/components/Weather";
 import { OpenWeatherApiCurrentResponseMock } from "@/__mocks__";
 import { formatTemperature } from "@/utils";
 
