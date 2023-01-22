@@ -5,22 +5,26 @@ import { OpenWeatherApiCurrentResponse } from "@/services/types";
 import InputBox from "@/components/ui/InputBox";
 import Spinner from "@/components/ui/Spinner";
 import Weather from "@/components/Weather";
+import { spawn } from "child_process";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState("");
-  const [, setError] = useState(null);
-  const [weatherData, setWeatherData] = useState<OpenWeatherApiCurrentResponse | null>(
-    null
-  );
+  const [error, setError] = useState<string | null>(null);
+  const [
+    weatherData,
+    setWeatherData,
+  ] = useState<OpenWeatherApiCurrentResponse | null>(null);
 
   const fetchForecast = async () => {
     try {
+      setWeatherData(null);
       setIsLoading(true);
+      setError(null);
       const data = await OpenWeatherService.getWeatherForecastByCity(city);
       setWeatherData(data);
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
     setIsLoading(false);
   };
@@ -49,13 +53,8 @@ export default function Home() {
           }
         />
       </form>
-      <div>
-        {weatherData ? (
-          <Weather data={weatherData} />
-        ) : isLoading ? (
-          <Spinner />
-        ) : null}
-      </div>
+      <div>{isLoading ? <Spinner /> : <Weather data={weatherData} />}</div>
+      {error && <span>{error}</span>}
     </>
   );
 }

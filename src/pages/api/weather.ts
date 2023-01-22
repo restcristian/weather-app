@@ -20,6 +20,6 @@ export default async function handler(
 
     res.status(200).send(response);
   } catch (error) {
-    res.status(500);
+    res.send(error);
   }
 }
