@@ -1,19 +1,18 @@
 import React, { FormEvent, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import InputBox from "@/components/ui/InputBox";
-import Spinner from "@/components/ui/Spinner";
 import ForeCast from "@/components/Weather/ForeCast";
 import { useGeoLocation } from "@/hooks";
 import IconButton from "@/components/ui/IconButton";
 import { useOpenWeatherCurrentResponseQuery } from "@/services/queries";
 import styles from "./weather.module.scss";
-import ErrorLabel from "../ErrorLabel";
+import ErrorModal from "../ErrorModal";
 
 const Weather = () => {
-  const [city, setCity] = useState("");
-
-  const { isSuccessful: isGeoSuccessful, geoLocation } = useGeoLocation();
-
+  
+  const { geoLocation, error: geoLocationError } = useGeoLocation();
+  
+  const [city, setCity] = useState('');
   const { isLoading, refetch } = useOpenWeatherCurrentResponseQuery(
     {
       lat: geoLocation?.lat,
@@ -21,7 +20,7 @@ const Weather = () => {
       city,
     },
     {
-      enabled: !!isGeoSuccessful,
+      enabled: !!geoLocation,
       retry: false,
     }
   );
@@ -35,9 +34,6 @@ const Weather = () => {
     refetch();
   };
 
-  if (!isGeoSuccessful) {
-    return <Spinner />;
-  }
 
   return (
     <div className={styles.weather}>
@@ -53,6 +49,7 @@ const Weather = () => {
           }
         />
       </form>
+      <ErrorModal hasError = {!!geoLocationError} message = "Geolocation not activated. Please enter city" />
       <ForeCast />
     </div>
   );

@@ -1,4 +1,4 @@
-import ErrorLabel from "@/components/ErrorLabel";
+import ErrorModal from "@/components/ErrorModal";
 import Spinner from "@/components/ui/Spinner";
 import { useOpenWeatherCurrentResponseQuery } from "@/services/queries";
 import { formatOpenWeatherIconUrl, formatTemperature } from "@/utils";
@@ -13,7 +13,6 @@ const ForeCast: React.FC = () => {
     isLoading,
     isError,
     isFetching,
-    error
   } = useOpenWeatherCurrentResponseQuery(
     {},
     {
@@ -22,16 +21,21 @@ const ForeCast: React.FC = () => {
     }
   );
 
-  if(isLoading || isFetching) {
-    return  (
-      <div className = {styles.spinnerContainer}>
+  if (isLoading || isFetching) {
+    return (
+      <div className={styles.spinnerContainer}>
         <Spinner />
       </div>
-    )
+    );
   }
 
-  if(isError) {
-    return <ErrorLabel error={error} />;
+  if (isError) {
+    return (
+      <ErrorModal
+        hasError={isError}
+        message="City was not found. Please try with anoter"
+      />
+    );
   }
 
   if (!data?.current) {
