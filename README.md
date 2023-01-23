@@ -66,6 +66,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - [ ] Improve test coverage
 - [ ] Make Cities to work as autocomplete.
+- [ ] Display more of the OpenWeatherAPI data.
 - [ ] Consider implementing storybook for UI components.
 ##
 Made by Cristian Restituyo
