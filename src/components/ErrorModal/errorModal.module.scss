@@ -1,0 +1,45 @@
+@import "~/src/styles/colors";
+
+.errorModal {
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgb(23 23 23);
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  padding: 24px;
+  transform: translate(-50%, -50%);
+
+  &.isOpen {
+    opacity: 1;
+    visibility: visible;
+    animation: fade-out .5s 5s ease-in-out forwards;
+  }
+
+  .contentTitle {
+    color: $color-white;
+    font-size: 1.5rem;
+  }
+
+  &.contentItem {
+    text-align: center;
+    margin: 12px 0;
+  }
+}
+
+@keyframes fade-out {
+    0%{
+        opacity: 1;
+        visibility: visible;
+    }
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+}

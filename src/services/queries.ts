@@ -19,6 +19,7 @@ export const useOpenWeatherCurrentResponseQuery = <T = OpenWeatherApiCurrentResp
   options: any,
 ) => {
   const { lat, lon, city } = geoLocation;
+  
   const query = useQuery(
     "useOpenWeatherCurrentResponseQuery",
     () => {
@@ -26,9 +27,9 @@ export const useOpenWeatherCurrentResponseQuery = <T = OpenWeatherApiCurrentResp
         return OpenWeatherService.getWeatherForecastByCoordinates(
           lat,
           lon
-        ).then();
-      }
-      return OpenWeatherService.getWeatherForecastByCity(city).then();
+          ).then();
+        }
+        return OpenWeatherService.getWeatherForecastByCity(city).then();
     },
     {
       ...options,
