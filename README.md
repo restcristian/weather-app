@@ -5,6 +5,8 @@
 
 This web app  provides the current weather and projected forecast.
 
+## Live demo
+https://weather-app-brown-zeta.vercel.app/
 
 
 The application takes the user's location using the `navigator` object available on the browser for the first time it loads, as well as when the input field is empty. Otherwise uses the city name.
@@ -22,6 +24,7 @@ The app was developed with the following technologies:
 - Jest
 - [React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro/)
 - Github Actions to run test tests and linting
+- Vercel for Deployment
 
 ## Features
 
