@@ -11,12 +11,12 @@ type QueryOptions<
   TQueryKey extends QueryKey = QueryKey
 > = Omit<
   UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
-  "queryKey" | "queryFn"
+  "queryKey"
 >;
 
-export const useOpenWeatherCurrentResponseQuery = (
+export const useOpenWeatherCurrentResponseQuery = <T = OpenWeatherApiCurrentResponse> (
   geoLocation: { lat?: number; lon?: number; city?: string },
-  options?: QueryOptions<OpenWeatherApiCurrentResponse, OpenWeatherApiError>
+  options: any,
 ) => {
   const { lat, lon, city } = geoLocation;
   const query = useQuery(
@@ -30,21 +30,9 @@ export const useOpenWeatherCurrentResponseQuery = (
       }
       return OpenWeatherService.getWeatherForecastByCity(city).then();
     },
-    options
-  );
-  return {
-    ...query,
-  };
-};
-
-export const useOpenWeatherForecastByCityQuery = (
-  city: string,
-  options?: QueryOptions
-) => {
-  const query = useQuery(
-    "useOpenWeatherForecastByCity",
-    () => OpenWeatherService.getWeatherForecastByCity(city).then(),
-    options
+    {
+      ...options,
+    }
   );
   return {
     ...query,

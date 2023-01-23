@@ -4,7 +4,7 @@ import { OpenWeatherApiCurrentResponse } from "@/services/types";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<OpenWeatherApiCurrentResponse>
+  res: NextApiResponse
 ) {
   const { openWeatherUrl, openWeatherKey } = weatherAppConfig;
   const { lat, lon } = req.query;
