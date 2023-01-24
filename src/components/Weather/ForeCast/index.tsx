@@ -8,7 +8,12 @@ import DailyProjection from "../DailyProjection";
 import styles from "./forecast.module.scss";
 
 const ForeCast: React.FC = () => {
-  const { data, isLoading, isError } = useOpenWeatherCurrentResponseQuery({});
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetching,
+  } = useOpenWeatherCurrentResponseQuery({});
 
   if (isLoading) {
     return (
@@ -18,7 +23,7 @@ const ForeCast: React.FC = () => {
     );
   }
 
-  if (isError) {
+  if (isError && !isFetching) {
     return (
       <ErrorModal
         hasError={isError}
