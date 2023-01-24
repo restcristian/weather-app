@@ -8,20 +8,9 @@ import DailyProjection from "../DailyProjection";
 import styles from "./forecast.module.scss";
 
 const ForeCast: React.FC = () => {
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetching,
-  } = useOpenWeatherCurrentResponseQuery(
-    {},
-    {
-      enabled: false,
-      retry: false,
-    }
-  );
+  const { data, isLoading, isError } = useOpenWeatherCurrentResponseQuery({});
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
       <div className={styles.spinnerContainer}>
         <Spinner />
