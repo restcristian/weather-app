@@ -16,7 +16,7 @@ type QueryOptions<
 
 export const useOpenWeatherCurrentResponseQuery = <T = OpenWeatherApiCurrentResponse> (
   geoLocation: { lat?: number; lon?: number; city?: string },
-  options: any,
+  options?: any,
 ) => {
   const { lat, lon, city } = geoLocation;
   

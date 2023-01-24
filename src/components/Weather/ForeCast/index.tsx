@@ -13,15 +13,9 @@ const ForeCast: React.FC = () => {
     isLoading,
     isError,
     isFetching,
-  } = useOpenWeatherCurrentResponseQuery(
-    {},
-    {
-      enabled: false,
-      retry: false,
-    }
-  );
+  } = useOpenWeatherCurrentResponseQuery({});
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
       <div className={styles.spinnerContainer}>
         <Spinner />
@@ -29,7 +23,7 @@ const ForeCast: React.FC = () => {
     );
   }
 
-  if (isError) {
+  if (isError && !isFetching) {
     return (
       <ErrorModal
         hasError={isError}
